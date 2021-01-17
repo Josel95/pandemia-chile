@@ -2,19 +2,22 @@ import React from 'react';
 
 import styled from 'styled-components'
 
-import { Text } from 'react-native'
+import { Comuna } from './components/Comuna/Comuna'
+
+import { Paso } from './components/Paso/Paso'
 
 const ViewStyled = styled.View`
     display: flex;
-    justify-content: center;
     align-items: center;
+    padding-top: 50px;
     height: 100%;
 `
 
 export default function App() {
   return (
     <ViewStyled>
-      <Text>Pandemia chile</Text>
+      <Comuna comuna={'San Miguel'} />
+      <Paso paso={2} />
     </ViewStyled>
   );
 }
