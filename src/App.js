@@ -6,6 +6,8 @@ import { Comuna } from './components/Comuna/Comuna'
 
 import { Paso } from './components/Paso/Paso'
 
+import { ComunaList } from './components/ComunaList/ComunaList'
+
 const ViewStyled = styled.View`
     display: flex;
     align-items: center;
@@ -18,6 +20,8 @@ export default function App() {
     <ViewStyled>
       <Comuna comuna={'San Miguel'} />
       <Paso paso={2} />
+
+      <ComunaList/>
     </ViewStyled>
   );
 }
