@@ -1,7 +1,5 @@
 import React from 'react'
 
-import { comunas } from '../../comunas'
-
 import { PasoNumber } from '../Paso/Paso'
 
 import { Scroll, ComunaItemContainer, ComunaItemText } from './styles'
@@ -15,7 +13,7 @@ const ComunaItem = ({ comuna }) => {
     )
 }
 
-export const ComunaList = () => {
+export const ComunaList = ({ comunas = [] }) => {
 
     return (
         <Scroll>
