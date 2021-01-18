@@ -20,7 +20,7 @@ export const ComunaList = () => {
     return (
         <Scroll>
             {
-                comunas.map(comuna => <ComunaItem comuna={comuna} />)
+                comunas.map(comuna => <ComunaItem key={comuna} comuna={comuna} />)
             }
         </Scroll>
     )
