@@ -12,6 +12,8 @@ import { useLocation } from './hooks/useLocation'
 
 import { getNearbyComunas } from './utils/getNearbyComuna'
 
+import { useComunas }  from './hooks/useComunas'
+
 export default function App() {
 
     const [location] = useLocation()
@@ -21,6 +23,8 @@ export default function App() {
     const [nearbyComunas, setNearbyComunas] = useState([])
 
     const [closerComuna, setCloserComuna] = useState({})
+
+    const comunas = useComunas()
 
     useEffect(() => {
         if (location) {
@@ -34,17 +38,17 @@ export default function App() {
 
     useEffect(() => {
         if(coords){
-            const nearby = getNearbyComunas(coords, 20)
+            const nearby = getNearbyComunas(comunas, coords, 20)
             setCloserComuna(nearby.shift())
             setNearbyComunas(nearby)
         }
-    }, [coords])
+    }, [coords, comunas])
 
     return (
         <ViewStyled>
             <CurrentComuna>
-                <Comuna comuna={closerComuna.name || "Cargando"} />
-                <Paso paso={closerComuna.paso || 0} />
+                <Comuna comuna={(closerComuna && closerComuna.name) || "Cargando"} />
+                <Paso paso={(closerComuna && closerComuna.paso) || 0} />
             </CurrentComuna>
 
             <NearbyComunas>

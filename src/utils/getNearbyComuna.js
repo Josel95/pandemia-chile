@@ -1,5 +1,3 @@
-import data from '../../data/test.json'
-
 /**
  * Calculate distances between two coordinates on spherical earth
  * https://www.movable-type.co.uk/scripts/latlong.html
@@ -27,17 +25,13 @@ const calculateHaversine = (locationA, locationB) => {
     return d
 }
 
-export const getNearbyComunas = (location, top = 10) => {
+export const getNearbyComunas = (data, location, top = 10) => {
     let comunas = [...data.map(comuna => {
         const { latitude, longitude } = comuna
 
         const locationB = {latitude, longitude}
 
         const distance = calculateHaversine(location, locationB)
-
-        if(isNaN(distance)) {
-            console.log(comuna)
-        }
 
         return {
             ...comuna,
