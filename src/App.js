@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import levenshtein from 'js-levenshtein'
+
 import { ViewStyled, CurrentComuna, NearbyComunas, NearbyComunasTitle } from './styles'
 
 import { Comuna } from './components/Comuna/Comuna'
@@ -16,13 +18,13 @@ import { useComunas }  from './hooks/useComunas'
 
 export default function App() {
 
-    const [location] = useLocation()
+    const [location, comuna] = useLocation()
 
     const [coords, setCoords] = useState({})
 
     const [nearbyComunas, setNearbyComunas] = useState([])
 
-    const [closerComuna, setCloserComuna] = useState({})
+    const [currentComuna, setCurrentComuna] = useState({})
 
     const comunas = useComunas()
 
@@ -37,18 +39,33 @@ export default function App() {
     }, [location])
 
     useEffect(() => {
-        if(coords){
-            const nearby = getNearbyComunas(comunas, coords, 20)
-            setCloserComuna(nearby.shift())
+        if(comunas) {
+            const sortedComunas = comunas.sort((a, b) => {
+                return levenshtein(a.name, comuna) > levenshtein(b.name, comuna)
+            })
+
+            setCurrentComuna(sortedComunas[0])
+        }
+    }, [comuna])
+
+    useEffect(() => {
+        if(currentComuna){
+            const coordCurrentComuna = {
+                latitude: currentComuna.latitude,
+                longitude: currentComuna.longitude
+            }
+    
+            const nearby = getNearbyComunas(comunas, coordCurrentComuna, 20)
+            nearby.shift()
             setNearbyComunas(nearby)
         }
-    }, [coords, comunas])
+    }, [currentComuna, comunas, coords])
 
     return (
         <ViewStyled>
             <CurrentComuna>
-                <Comuna comuna={(closerComuna && closerComuna.name) || "Cargando"} />
-                <Paso paso={(closerComuna && closerComuna.paso) || 0} />
+                <Comuna comuna={(currentComuna && currentComuna.name) || "Cargando"} />
+                <Paso paso={(currentComuna && currentComuna.paso) || 0} />
             </CurrentComuna>
 
             <NearbyComunas>
