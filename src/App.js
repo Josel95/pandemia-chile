@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { Text } from 'react-native'
 
-import { ViewStyled } from './styles'
+import { ViewStyled, NearestTitle } from './styles'
 
 import { useComuna } from './hooks/useComuna'
 
@@ -39,6 +39,7 @@ export default function App() {
     return (
         <ViewStyled>
             <Header currentComuna={currentComuna}/>
+            <NearestTitle>Comunas Cercanas</NearestTitle>
             <NearestList comunas={currentComuna.nearComunas}/>
         </ViewStyled>
     );

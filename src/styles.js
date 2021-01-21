@@ -8,16 +8,9 @@ export const ViewStyled = styled.View`
     background-color: #FAFAFA;
 `
 
-export const NearbyComunas = styled.View`
-    flex: 70%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    /* background-color: pink; */
-`
-
-export const NearbyComunasTitle = styled.Text`
-    font-size: 27px;
+export const NearestTitle = styled.Text`
+    font-size: 24px;
     padding: 15px 0;
+    color: #757575;
     font-family: 'Poppins_400Regular';
 `
