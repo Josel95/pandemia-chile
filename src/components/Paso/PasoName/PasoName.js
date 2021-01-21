@@ -4,13 +4,7 @@ import { Container, Name } from './styles'
 
 import colors from '../colors.json'
 
-const names = {
-    1: "Cuarentena",
-    2: "Transición",
-    3: "Preparación",
-    4: "Apertura Inicial",
-    5: "Apertura Avanzada"
-}
+import names from '../names.json'
 
 export const PasoName = ({ number = 1 }) => {
 

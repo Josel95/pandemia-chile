@@ -8,6 +8,8 @@ import { useComuna } from './hooks/useComuna'
 
 import { Header } from './components/Header/Header'
 
+import { NearestList } from './components/NearestList/NearestList'
+
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 export default function App() {
@@ -37,6 +39,7 @@ export default function App() {
     return (
         <ViewStyled>
             <Header currentComuna={currentComuna}/>
+            <NearestList comunas={currentComuna.nearComunas}/>
         </ViewStyled>
     );
 }
