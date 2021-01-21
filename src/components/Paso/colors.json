@@ -1,0 +1,32 @@
+{
+    "1": {
+        "numberFont": "#FFFFFF",
+        "nameFont": "#FFFFFF",
+        "numberBackground":  "#991717",
+        "nameBackground": "#F75C5C"
+    },
+    "2": {
+        "numberFont": "#FFFFFF",
+        "nameFont": "#744c13",
+        "numberBackground":  "#BF7200",
+        "nameBackground": "#FFBF00"
+    },
+    "3": {
+        "numberFont": "#FFFFFF",
+        "nameFont": "#756d00",
+        "numberBackground":  "#A69B00",
+        "nameBackground": "#FFF200"
+    },
+    "4": {
+        "numberFont": "#FFFFFF",
+        "nameFont": "#001f39",
+        "numberBackground":  "#004680",
+        "nameBackground": "#338AD1"
+    },
+    "5": {
+        "numberFont": "#FFFFFF",
+        "nameFont": "#305a7b",
+        "numberBackground":  "#4784B5",
+        "nameBackground": "#A7D1F2"
+    },
+}

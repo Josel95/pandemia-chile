@@ -2,15 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { Text } from 'react-native'
 
-import { ViewStyled, CurrentComuna, NearbyComunas, NearbyComunasTitle } from './styles'
-
-import { Comuna } from './components/Comuna/Comuna'
-
-import { Paso } from './components/Paso/Paso'
-
-import { ComunaList } from './components/ComunaList/ComunaList'
+import { ViewStyled } from './styles'
 
 import { useComuna } from './hooks/useComuna'
+
+import { Header } from './components/Header/Header'
 
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
@@ -40,15 +36,7 @@ export default function App() {
 
     return (
         <ViewStyled>
-            <CurrentComuna>
-                <Comuna comuna={currentComuna.name} />
-                <Paso paso={currentComuna.paso} />
-            </CurrentComuna>
-
-            <NearbyComunas>
-                <NearbyComunasTitle>Comunas cercanas</NearbyComunasTitle>
-                <ComunaList comunas={currentComuna.nearComunas} />
-            </NearbyComunas>
+            <Header currentComuna={currentComuna}/>
         </ViewStyled>
     );
 }
