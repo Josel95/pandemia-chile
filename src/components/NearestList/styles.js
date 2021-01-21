@@ -9,7 +9,7 @@ export const ItemContainer = styled.View`
     border-style: solid;
     border-left-width: 9px;
     border-left-color: ${props => props.color};
-    padding-left: 32px;
+    padding-left: 10px;
     padding-right: 32px;
     display: flex;
     justify-content: center;
@@ -34,13 +34,13 @@ export const Divider = styled.View`
 
 export const ItemName = styled.Text`
     color: #212121;
-    width: 70%;
+    width: 60%;
     font-size: 24px;
     font-family: 'Poppins_400Regular';
 `
 
 export const PasoContainer = styled.View`
-
+    width: 40%;
 `
 
 export const PasoText = styled.Text`
