@@ -27,5 +27,6 @@ export const NearbyComunas = styled.View`
 
 export const NearbyComunasTitle = styled.Text`
     font-size: 27px;
-    padding: 15px 0; 
+    padding: 15px 0;
+    font-family: 'Poppins_400Regular';
 `

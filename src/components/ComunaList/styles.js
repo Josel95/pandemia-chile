@@ -18,4 +18,5 @@ export const ComunaItemContainer = styled.View`
 
 export const ComunaItemText = styled.Text`
     font-size: 20px;
+    font-family: 'Poppins_400Regular';
 `

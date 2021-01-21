@@ -31,9 +31,11 @@ export const TitleView = styled.View`
 export const TextNormal = styled.Text`
     color: ${props => props.fontColor || "#FFFFFF"};
     font-size: 25px;
+    font-family: 'Poppins_400Regular';
 `
 
 export const TextBig = styled.Text`
     color: #FFFFFF;
     font-size: 36px;
+    font-family: 'Poppins_400Regular';
 `

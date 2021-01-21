@@ -12,11 +12,17 @@ import { ComunaList } from './components/ComunaList/ComunaList'
 
 import { useComuna } from './hooks/useComuna'
 
+import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
+
 export default function App() {
-    
+
     const comuna = useComuna()
 
     const [currentComuna, setCurrentComuna] = useState({})
+
+    let [fontsLoaded] = useFonts({
+        Poppins_400Regular,
+    });
 
     useEffect(() => {
         if (comuna) {
@@ -24,7 +30,7 @@ export default function App() {
         }
     }, [comuna])
 
-    if(!currentComuna){
+    if (!currentComuna || !fontsLoaded) {
         return (
             <ViewStyled>
                 <Text>Cargando...</Text>
