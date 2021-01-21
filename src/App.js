@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import levenshtein from 'js-levenshtein'
+import { Text } from 'react-native'
 
 import { ViewStyled, CurrentComuna, NearbyComunas, NearbyComunasTitle } from './styles'
 
@@ -10,67 +10,38 @@ import { Paso } from './components/Paso/Paso'
 
 import { ComunaList } from './components/ComunaList/ComunaList'
 
-import { useLocation } from './hooks/useLocation'
-
-import { getNearbyComunas } from './utils/getNearbyComuna'
-
-import { useComunas }  from './hooks/useComunas'
+import { useComuna } from './hooks/useComuna'
 
 export default function App() {
-
-    const [location, comuna] = useLocation()
-
-    const [coords, setCoords] = useState({})
-
-    const [nearbyComunas, setNearbyComunas] = useState([])
+    
+    const comuna = useComuna()
 
     const [currentComuna, setCurrentComuna] = useState({})
 
-    const comunas = useComunas()
-
     useEffect(() => {
-        if (location) {
-            const { latitude, longitude } = location?.coords
-            setCoords({
-                latitude,
-                longitude
-            })
-        }
-    }, [location])
-
-    useEffect(() => {
-        if(comunas) {
-            const sortedComunas = comunas.sort((a, b) => {
-                return levenshtein(a.name, comuna) > levenshtein(b.name, comuna)
-            })
-
-            setCurrentComuna(sortedComunas[0])
+        if (comuna) {
+            setCurrentComuna(comuna)
         }
     }, [comuna])
 
-    useEffect(() => {
-        if(currentComuna){
-            const coordCurrentComuna = {
-                latitude: currentComuna.latitude,
-                longitude: currentComuna.longitude
-            }
-    
-            const nearby = getNearbyComunas(comunas, coordCurrentComuna, 20)
-            nearby.shift()
-            setNearbyComunas(nearby)
-        }
-    }, [currentComuna, comunas, coords])
+    if(!currentComuna){
+        return (
+            <ViewStyled>
+                <Text>Cargando...</Text>
+            </ViewStyled>
+        )
+    }
 
     return (
         <ViewStyled>
             <CurrentComuna>
-                <Comuna comuna={(currentComuna && currentComuna.name) || "Cargando"} />
-                <Paso paso={(currentComuna && currentComuna.paso) || 0} />
+                <Comuna comuna={currentComuna.name} />
+                <Paso paso={currentComuna.paso} />
             </CurrentComuna>
 
             <NearbyComunas>
                 <NearbyComunasTitle>Comunas cercanas</NearbyComunasTitle>
-                <ComunaList comunas={nearbyComunas}/>
+                <ComunaList comunas={currentComuna.nearComunas} />
             </NearbyComunas>
         </ViewStyled>
     );
