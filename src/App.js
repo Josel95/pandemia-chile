@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import { Text } from 'react-native'
 
@@ -12,35 +12,27 @@ import { NearestList } from './components/NearestList/NearestList'
 
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
+import { LoadingScreen } from './screens/LoadingScreen/LoadingScreen'
+
 export default function App() {
 
     const comuna = useComuna()
-
-    const [currentComuna, setCurrentComuna] = useState({})
 
     let [fontsLoaded] = useFonts({
         Poppins_400Regular,
     });
 
-    useEffect(() => {
-        if (comuna) {
-            setCurrentComuna(comuna)
-        }
-    }, [comuna])
-
-    if (!currentComuna || !fontsLoaded) {
-        return (
-            <ViewStyled>
-                <Text>Cargando...</Text>
-            </ViewStyled>
-        )
-    }
-
     return (
         <ViewStyled>
-            <Header currentComuna={currentComuna}/>
-            <NearestTitle>Comunas Cercanas</NearestTitle>
-            <NearestList comunas={currentComuna.nearComunas}/>
+            {
+                !comuna || !fontsLoaded ? (<LoadingScreen/>) : (
+                    <Fragment>
+                        <Header currentComuna={comuna}/>
+                        <NearestTitle>Comunas Cercanas</NearestTitle>
+                        <NearestList comunas={comuna.nearComunas}/>
+                    </Fragment>
+                )
+            }
         </ViewStyled>
     );
 }
