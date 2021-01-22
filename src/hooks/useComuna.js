@@ -6,6 +6,8 @@ import * as Location from 'expo-location'
 
 import { getComuna } from '../geocoding/getComuna'
 
+import { BackHandler } from 'react-native'
+
 const getComunaNameByLocation = async () => {
     /**
      * TODO: Request permission in another component, maybe App file.
@@ -14,8 +16,7 @@ const getComunaNameByLocation = async () => {
     let { status } = await Location.requestPermissionsAsync()
 
     if (status !== 'granted') {
-        // TODO: handle this error in a proper way
-        console.log('Permission to access location was denied')
+        BackHandler.exitApp()
         return
     }
 
@@ -52,7 +53,9 @@ export const useComuna = () => {
     useEffect(() => {
         (async () => {
             const name = await getComunaNameByLocation()
-            getComunaData(name, setComuna)
+            if(name){
+                getComunaData(name, setComuna)
+            }
         })()
     }, [])
 
