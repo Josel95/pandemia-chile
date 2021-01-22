@@ -1,6 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
-
-import { Text } from 'react-native'
+import React, { Fragment } from 'react';
 
 import { ViewStyled, NearestTitle } from './styles'
 
@@ -19,13 +17,13 @@ export default function App() {
     const comuna = useComuna()
 
     let [fontsLoaded] = useFonts({
-        Poppins_400Regular,
-    });
+        Poppins_400Regular
+    })
 
     return (
         <ViewStyled>
             {
-                !comuna || !fontsLoaded ? (<LoadingScreen/>) : (
+                !comuna || !fontsLoaded ? (<LoadingScreen />) : (
                     <Fragment>
                         <Header currentComuna={comuna}/>
                         <NearestTitle>Comunas Cercanas</NearestTitle>

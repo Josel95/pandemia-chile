@@ -12,5 +12,5 @@ export const LoadingText = styled.Text`
     font-size: 24px;
     font-weight: bold;
     margin-top: 30px;
-    font-family: 'Poppins_400Regular';
+    /* font-family: 'Poppins_400Regular'; */
 `
