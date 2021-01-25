@@ -14,18 +14,19 @@ import { LoadingScreen } from './screens/LoadingScreen/LoadingScreen'
 
 export default function App() {
 
-    const comuna = useComuna()
+    const [comuna, reload] = useComuna()
 
     let [fontsLoaded] = useFonts({
         Poppins_400Regular
     })
+
 
     return (
         <ViewStyled>
             {
                 !comuna || !fontsLoaded ? (<LoadingScreen />) : (
                     <Fragment>
-                        <Header currentComuna={comuna}/>
+                        <Header currentComuna={comuna} onReload={reload}/>
                         <NearestTitle>Comunas Cercanas</NearestTitle>
                         <NearestList comunas={comuna.nearComunas}/>
                     </Fragment>

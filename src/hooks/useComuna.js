@@ -45,14 +45,16 @@ const getComunaData = (name, setComuna) => {
 export const useComuna = () => {
     const [comuna, setComuna] = useState()
 
+    const getData = async () => {
+        const name = await getComunaNameByLocation()
+        if(name){
+            getComunaData(name, setComuna)
+        }
+    }
+
     useEffect(() => {
-        (async () => {
-            const name = await getComunaNameByLocation()
-            if(name){
-                getComunaData(name, setComuna)
-            }
-        })()
+        getData()
     }, [])
 
-    return comuna
+    return [comuna, getData]
 }
