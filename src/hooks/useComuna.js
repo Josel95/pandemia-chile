@@ -6,18 +6,13 @@ import * as Location from 'expo-location'
 
 import { getComuna } from '../geocoding/getComuna'
 
-import { BackHandler } from 'react-native'
+const DEFAULT_LOCATION = "ñuñoa"
 
 const getComunaNameByLocation = async () => {
-    /**
-     * TODO: Request permission in another component, maybe App file.
-     * The app shouldn't work if permission has not granted
-     */
     let { status } = await Location.requestPermissionsAsync()
 
     if (status !== 'granted') {
-        BackHandler.exitApp()
-        return
+        return DEFAULT_LOCATION
     }
 
     let location = await Location.getCurrentPositionAsync({})
