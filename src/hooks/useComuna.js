@@ -6,7 +6,7 @@ import * as Location from 'expo-location'
 
 import { getComuna } from '../geocoding/getComuna'
 
-const DEFAULT_LOCATION = "ñuñoa"
+const DEFAULT_LOCATION = "santiago"
 
 const getComunaNameByLocation = async () => {
     let { status } = await Location.requestPermissionsAsync()
