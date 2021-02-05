@@ -1,10 +1,14 @@
 # Pandemia Chile
 
-<img align="center" src="./images/logo.png" alt="pandemia chile logo" width="250" height="250">
+<p align="center">
+    <img src="./images/logo.png" alt="pandemia chile logo" width="250" height="250">
+</p>
 
 Pandemia Chile es una aplicación para conocer la situación comunal del plan [Paso a Paso ](https://www.gob.cl/coronavirus/pasoapaso/) según la comuna en donde te encuentres. Se utiliza la información subida al repositorio [MinCiencia](https://github.com/MinCiencia/Datos-COVID19) que es recolectada por el proyecto [pandemia-chile-data](https://github.com/Josel95/pandemia-chile-data).
 
-<img align="center" src="./images/screenshot.jpg" alt="pandemia chile logo" width="250">
+<p align="center">
+    <img src="./images/screenshot.jpg" alt="pandemia chile logo" width="250">
+</p>
 
 ## Instalación
 
