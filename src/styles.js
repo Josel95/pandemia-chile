@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const ViewStyled = styled.View`
     display: flex;
     align-items: center;
-    padding-top: 25px;
     height: 100%;
     background-color: #FAFAFA;
 `

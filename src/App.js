@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 
 import { ViewStyled, NearestTitle } from './styles'
 
+import { StatusBar } from 'react-native'
+
 import { useComuna } from './hooks/useComuna'
 
 import { Header } from './components/Header/Header'
@@ -26,6 +28,7 @@ export default function App() {
             {
                 !comuna || !fontsLoaded ? (<LoadingScreen />) : (
                     <Fragment>
+                        <StatusBar barStyle="default" hidden={false} backgroundColor="#03A9F4" translucent={false}/>
                         <Header currentComuna={comuna} onReload={reload}/>
                         <NearestTitle>Comunas Cercanas</NearestTitle>
                         <NearestList comunas={comuna.nearComunas}/>
