@@ -10,8 +10,9 @@ export const getComuna = async (coords) => {
     const { data } = await axios.get(url)
 
     if(data) {
+        
         const comuna = data.results[0].address_components.find(addressComponent => {
-            return addressComponent.types.includes("locality")
+            return addressComponent.types.includes("administrative_area_level_3")
         })
 
         return comuna.short_name
