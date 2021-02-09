@@ -25,7 +25,7 @@ export const ComunaText = styled.Text`
 `
 
 export const ComunaName = styled.Text`
-    font-size: 48px;
+    font-size: 36px;
     color: #ffffff;
     font-family: 'Poppins_400Regular';
 `
