@@ -9,21 +9,29 @@ import { getComuna } from '../geocoding/getComuna'
 const DEFAULT_LOCATION = "santiago"
 
 const getComunaNameByLocation = async () => {
-    let { status } = await Location.requestPermissionsAsync()
+    try {
+        let { status } = await Location.requestPermissionsAsync()
+    
+        if (status !== 'granted') {
+            return DEFAULT_LOCATION
+        }
+    
+        let location = await Location.getCurrentPositionAsync({})
+    
+        if (location && location.coords) {
+            const comuna = await getComuna({
+                latitude: location?.coords?.latitude,
+                longitude: location?.coords?.longitude
+            })
 
-    if (status !== 'granted') {
+            if(!comuna){
+                return DEFAULT_LOCATION
+            }
+    
+            return comuna
+        }
+    } catch {
         return DEFAULT_LOCATION
-    }
-
-    let location = await Location.getCurrentPositionAsync({})
-
-    if (location && location.coords) {
-        const comuna = await getComuna({
-            latitude: location?.coords?.latitude,
-            longitude: location?.coords?.longitude
-        })
-
-        return comuna
     }
 }
 
