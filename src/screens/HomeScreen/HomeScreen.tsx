@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-import { ScrollView } from 'react-native'
+import { View } from 'react-native'
 
 import { State } from '../../types/State'
 
@@ -21,6 +21,8 @@ export const HomeScreen: FC = () => {
     }
 
     return (
-        <ComunaList comuna={comuna} showCurrent={true}/>
+        <View style={styles.container} >
+            <ComunaList comuna={comuna} showCurrent={true}/>
+        </View>
     )
 }

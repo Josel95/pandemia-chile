@@ -56,16 +56,21 @@ export const ComunaDetailScreen: FC = () => {
                 paso={selectedComuna.paso} 
                 isCurrentLocation={false} />
     
-            <QuarantineDays paso={selectedComuna.paso} />
+            <View style={styles.quarantineDaysContainer}>
+                <QuarantineDays paso={selectedComuna.paso} />
+            </View>
 
-            <Stats 
-                deaths={selectedComuna.deadByComuna}
-                active={selectedComuna.activeCases}
-                total={selectedComuna.totalCases} />
+            <View style={styles.statsContainer}>
+                <Stats 
+                    deaths={selectedComuna.deadByComuna}
+                    active={selectedComuna.activeCases}
+                    total={selectedComuna.totalCases} />
+            </View>
 
-            <Text>Comunas Cercanas</Text>
-            
-            <ComunaList comuna={selectedComuna}/>
+            <View style={styles.nearComunasContainer}>
+                <Text style={styles.nearComunasTitle}>Comunas Cercanas</Text>
+                <ComunaList comuna={selectedComuna}/>
+            </View>
         </Fragment>
     )
 }

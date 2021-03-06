@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     card: {
+        marginHorizontal: 0,
         borderRadius: 4,
         shadowColor: "#000",
         shadowOffset: {
