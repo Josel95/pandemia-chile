@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useEffect, useState } from 'react'
 
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 import { useRoute } from '@react-navigation/native'
 
@@ -13,6 +13,8 @@ import { Comuna, NearComuna } from '../../types/Comuna'
 import { ComunaDetailHeader } from '../../components/ComunaDetailHeader'
 
 import { QuarantineDays } from '../../components/QuarantineDays'
+
+import { Stats } from '../../components/Stats'
 
 import { styles } from './styles'
 
@@ -55,7 +57,12 @@ export const ComunaDetailScreen: FC = () => {
                 paso={selectedComuna.paso} 
                 isCurrentLocation={false} />
     
-            <QuarantineDays paso={selectedComuna.paso}/>
+            <QuarantineDays paso={selectedComuna.paso} />
+
+            <Stats 
+                deaths={selectedComuna.deadByComuna}
+                active={selectedComuna.activeCases}
+                total={selectedComuna.totalCases} />
         </Fragment>
     )
 }
