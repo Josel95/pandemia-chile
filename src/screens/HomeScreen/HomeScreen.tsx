@@ -22,10 +22,10 @@ export const HomeScreen: FC = () => {
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <ComunaListItem comuna={comuna.name} paso={comuna.paso} isCurrentLocation />
+            <ComunaListItem id={comuna.id} comuna={comuna.name} paso={comuna.paso} isCurrentLocation />
             {
                 comuna.nearComunas.map(nearComuna => 
-                    <ComunaListItem key={nearComuna.id} comuna={nearComuna.name} paso={nearComuna.paso} isCurrentLocation={false} />)
+                    <ComunaListItem key={nearComuna.id} id={nearComuna.id} comuna={nearComuna.name} paso={nearComuna.paso} isCurrentLocation={false} />)
             }
         </ScrollView>
     )
