@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 
-import { Text } from 'react-native'
+import { ComunaListItem } from '../../components/ComunaListItem'
 
 import { styles } from './styles'
 
 export const HomeScreen: FC = () => {
 
     return (
-        <Text>HomeScreen</Text>
+        <ComunaListItem comuna='Pedro Aguirre Cerda' paso={2} isCurrentLocation={true} />
     )
 }

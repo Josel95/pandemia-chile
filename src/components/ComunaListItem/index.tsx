@@ -1,0 +1,1 @@
+export { ComunaListItem } from './ComunaListItem'
