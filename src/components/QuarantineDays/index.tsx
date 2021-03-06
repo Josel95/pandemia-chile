@@ -1,0 +1,1 @@
+export { QuarantineDays } from './QuarantineDays'

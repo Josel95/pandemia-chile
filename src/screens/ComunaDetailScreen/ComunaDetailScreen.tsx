@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, Fragment, useEffect, useState } from 'react'
 
 import { Text } from 'react-native'
 
@@ -11,6 +11,8 @@ import { State } from '../../types/State'
 import { Comuna, NearComuna } from '../../types/Comuna'
 
 import { ComunaDetailHeader } from '../../components/ComunaDetailHeader'
+
+import { QuarantineDays } from '../../components/QuarantineDays'
 
 import { styles } from './styles'
 
@@ -47,9 +49,13 @@ export const ComunaDetailScreen: FC = () => {
     }
 
     return (
-        <ComunaDetailHeader 
-            comunaName={selectedComuna.name} 
-            paso={selectedComuna.paso} 
-            isCurrentLocation={false} />
+        <Fragment>
+            <ComunaDetailHeader 
+                comunaName={selectedComuna.name} 
+                paso={selectedComuna.paso} 
+                isCurrentLocation={false} />
+    
+            <QuarantineDays paso={selectedComuna.paso}/>
+        </Fragment>
     )
 }
