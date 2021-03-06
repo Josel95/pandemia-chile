@@ -21,6 +21,9 @@ import { SearchScreen } from './screens/SearchScreen'
 const Stack = createStackNavigator()
 
 const headerOptions: StackNavigationOptions = {
+    cardStyle: {
+        backgroundColor: '#FFFFFF'
+    },
     header: () => <Header />
 }
 
