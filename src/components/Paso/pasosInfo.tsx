@@ -1,4 +1,4 @@
-import { stylesCardColors } from './styles'
+import { stylesColors, stylesCardColors } from './styles'
 
 export interface PasoDictionary {
     [key: number]: string
@@ -12,11 +12,37 @@ export interface PasoCardStyle {
     }
 }
 
+export interface PasoStyle {
+    [key: number]: {
+        number: any
+        text: any
+    }
+}
+
 export const pasosName: PasoDictionary = {
     1: 'Cuarentena',
     2: 'Transición',
     3: 'Preparación',
     4: 'Apertura Inicial',
+}
+
+export const pasosStyles: PasoStyle = {
+    1: {
+        number: stylesColors.numberPaso1,
+        text: stylesColors.textPaso1,
+    },
+    2: {
+        number: stylesColors.numberPaso2,
+        text: stylesColors.textPaso2,
+    },
+    3: {
+        number: stylesColors.numberPaso3,
+        text: stylesColors.textPaso3,
+    },
+    4: {
+        number: stylesColors.numberPaso4,
+        text: stylesColors.textPaso4,
+    },
 }
 
 export const pasosCardStyles: PasoCardStyle = {

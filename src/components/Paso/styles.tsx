@@ -49,33 +49,36 @@ export const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: 10,
     },
+})
+
+export const stylesColors = StyleSheet.create({
     // Colors paso 1
     numberPaso1: {
-        backgroundColor: '#991717',
+        backgroundColor: pasosColors[1].dark,
     },
     textPaso1: {
-        color: '#991717',
+        color: pasosColors[1].dark,
     },
     // Colors paso 2
     numberPaso2: {
-        backgroundColor: '#BF7200',
+        backgroundColor: pasosColors[2].dark,
     },
     textPaso2: {
-        color: '#BF7200',
+        color: pasosColors[2].dark,
     },
     // Colors paso 3
     numberPaso3: {
-        backgroundColor: '#A69B00',
+        backgroundColor: pasosColors[3].dark,
     },
     textPaso3: {
-        color: '#A69B00',
+        color: pasosColors[3].dark,
     },
     // Colors paso 4
     numberPaso4: {
-        backgroundColor: '#004680',
+        backgroundColor: pasosColors[4].dark,
     },
     textPaso4: {
-        color: '#004680',
+        color: pasosColors[4].dark,
     },
 })
 
