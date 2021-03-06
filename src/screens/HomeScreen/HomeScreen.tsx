@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native'
 
 import { State } from '../../types/State'
 
-import { ComunaListItem } from '../../components/ComunaListItem'
+import { ComunaList } from '../../components/ComunaList'
 
 import { useSelector } from 'react-redux'
 
@@ -21,12 +21,6 @@ export const HomeScreen: FC = () => {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <ComunaListItem id={comuna.id} comuna={comuna.name} paso={comuna.paso} isCurrentLocation />
-            {
-                comuna.nearComunas.map(nearComuna => 
-                    <ComunaListItem key={nearComuna.id} id={nearComuna.id} comuna={nearComuna.name} paso={nearComuna.paso} isCurrentLocation={false} />)
-            }
-        </ScrollView>
+        <ComunaList comuna={comuna} showCurrent={true}/>
     )
 }

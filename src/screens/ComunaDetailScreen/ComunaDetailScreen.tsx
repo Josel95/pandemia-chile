@@ -16,6 +16,8 @@ import { QuarantineDays } from '../../components/QuarantineDays'
 
 import { Stats } from '../../components/Stats'
 
+import { ComunaList } from '../../components/ComunaList'
+
 import { styles } from './styles'
 
 interface RouteProp {
@@ -31,14 +33,11 @@ export const ComunaDetailScreen: FC = () => {
 
     const comuna = useSelector((state: State) => state.comuna.comuna)
 
-    const [selectedComuna, setSelectedComuna] = useState<Comuna | NearComuna | undefined>(undefined)
+    const [selectedComuna, setSelectedComuna] = useState<Comuna | undefined>(undefined)
 
     useEffect(() => {
         if(comuna && comuna?.id !== params.id) {
-            const comunaFound = comuna.nearComunas.find(comuna => {
-                return comuna.id === params.id
-            })
-            setSelectedComuna(comunaFound)
+            // Ir a buscar a firestore
         }
 
         if(comuna?.id === params.id) {
@@ -63,6 +62,10 @@ export const ComunaDetailScreen: FC = () => {
                 deaths={selectedComuna.deadByComuna}
                 active={selectedComuna.activeCases}
                 total={selectedComuna.totalCases} />
+
+            <Text>Comunas Cercanas</Text>
+            
+            <ComunaList comuna={selectedComuna}/>
         </Fragment>
     )
 }
