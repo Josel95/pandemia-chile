@@ -4,6 +4,8 @@ import { Provider } from 'react-redux'
 
 import { StatusBar } from 'react-native'
 
+import { ThemeProvider } from 'react-native-elements'
+
 import { NavigationContainer } from '@react-navigation/native'
 
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
@@ -27,20 +29,28 @@ const headerOptions: StackNavigationOptions = {
     header: () => <Header />
 }
 
+const theme = {
+    colors: {
+        primary: '#03A8F4'
+    }
+}
+
 const App = () => {
     return (
-        <Fragment>
-            <Provider store={store}>
-                <StatusBar barStyle="dark-content" />
-                <NavigationContainer>
-                    <Stack.Navigator screenOptions={headerOptions}>
-                        <Stack.Screen name="Home" component={HomeScreen} />
-                        <Stack.Screen name="ComunaDetail" component={ComunaDetailScreen} />
-                        <Stack.Screen name="Search" component={SearchScreen} />
-                    </Stack.Navigator>
-                </NavigationContainer>
-            </Provider>
-        </Fragment>
+        <ThemeProvider theme={theme}>
+            <Fragment>
+                <Provider store={store}>
+                    <StatusBar barStyle="dark-content" />
+                    <NavigationContainer>
+                        <Stack.Navigator screenOptions={headerOptions}>
+                            <Stack.Screen name="Home" component={HomeScreen} />
+                            <Stack.Screen name="ComunaDetail" component={ComunaDetailScreen} />
+                            <Stack.Screen name="Search" component={SearchScreen} />
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </Provider>
+            </Fragment>
+        </ThemeProvider>
     );
 };
 

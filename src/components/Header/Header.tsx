@@ -26,6 +26,7 @@ export const Header: FC = () => {
 
     return (
         <AppBar
+            containerStyle={styles.container}
             placement="left"
             leftComponent={navigation.canGoBack() ? backArrow : undefined}
             centerComponent={{ text: 'Pandemia Chile', style: styles.title }}

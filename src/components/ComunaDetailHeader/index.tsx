@@ -1,0 +1,1 @@
+export { ComunaDetailHeader } from './ComunaDetailHeader'
