@@ -1,8 +1,10 @@
 import { createStore, combineReducers } from 'redux'
 
+import { State } from '../types/State'
+
 import { comunaReducer } from './reducers/comunasReducer'
 
-const reducers = combineReducers({
+const reducers = combineReducers<State>({
     comuna: comunaReducer
 })
 
