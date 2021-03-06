@@ -18,6 +18,8 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.20,
         shadowRadius: 1.41,
         elevation: 2,
+        paddingVertical: 7,
+        paddingHorizontal: 23,
     },
     text: {
         fontSize: 20,
