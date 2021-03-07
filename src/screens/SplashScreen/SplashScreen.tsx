@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 
 import { useDispatch } from 'react-redux'
 
@@ -11,6 +11,8 @@ import { useLocation, LocationError } from '../../hooks/useLocation'
 import { useComuna } from '../../hooks/useComuna'
 
 import { setComuna } from '../../redux/actions/comunasActions'
+
+import { Loading } from '../../components/Loading'
 
 import { styles } from './styles'
 
@@ -46,8 +48,6 @@ export const SplashScreen: FC = () => {
     }, [loadingLocation, loadingComuna])
 
     return (
-        <View style={styles.container} >
-            <Text>Cargando...</Text>
-        </View>
+        <Loading />
     )
 }
