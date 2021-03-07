@@ -10,7 +10,7 @@ import { styles } from './styles'
 import { TextInput } from 'react-native'
 
 interface Props {
-    search: boolean
+    search?: boolean
 }
 
 export const Header: FC<Props> = ({ search = false }) => {
