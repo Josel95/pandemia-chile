@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 
 import { Provider } from 'react-redux'
 
@@ -9,6 +9,8 @@ import { ThemeProvider } from 'react-native-elements'
 import { NavigationContainer } from '@react-navigation/native'
 
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
+
+import { useLocation } from './hooks/useLocation'
 
 import { store } from './redux/store'
 
@@ -36,6 +38,13 @@ const theme = {
 }
 
 const App = () => {
+
+    const { comunaName } = useLocation()
+
+    useEffect(() => {
+        console.log(comunaName)
+    }, [comunaName])
+
     return (
         <ThemeProvider theme={theme}>
             <Fragment>
