@@ -18,6 +18,8 @@ import { Stats } from '../../components/Stats'
 
 import { ComunaList } from '../../components/ComunaList'
 
+import { Loading } from '../../components/Loading'
+
 import { useComuna } from '../../hooks/useComuna'
 
 import { comunaCodes } from '../../comunaCodes'
@@ -35,7 +37,7 @@ interface RouteProp {
 export const ComunaDetailScreen: FC = () => {
     const { params } = useRoute<RouteProp>()
 
-    const { comuna, getComunaData } = useComuna()
+    const { comuna, getComunaData, loading } = useComuna()
 
     const comunaStore = useSelector((state: State) => state.comuna.comuna)
 
@@ -57,6 +59,10 @@ export const ComunaDetailScreen: FC = () => {
             setSelectedComuna(comuna)
         }
     }, [comuna])
+
+    if(loading) {
+        return <Loading />
+    }
 
     if(!selectedComuna) {
         return <Text>Ha ocurrido un error</Text>
