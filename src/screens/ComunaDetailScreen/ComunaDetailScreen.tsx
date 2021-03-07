@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 
 import { State } from '../../types/State'
 
-import { Comuna, NearComuna } from '../../types/Comuna'
+import { Comuna } from '../../types/Comuna'
 
 import { ComunaDetailHeader } from '../../components/ComunaDetailHeader'
 
@@ -17,6 +17,10 @@ import { QuarantineDays } from '../../components/QuarantineDays'
 import { Stats } from '../../components/Stats'
 
 import { ComunaList } from '../../components/ComunaList'
+
+import { useComuna } from '../../hooks/useComuna'
+
+import { comunaCodes } from '../../comunaCodes'
 
 import { styles } from './styles'
 
@@ -31,19 +35,28 @@ interface RouteProp {
 export const ComunaDetailScreen: FC = () => {
     const { params } = useRoute<RouteProp>()
 
-    const comuna = useSelector((state: State) => state.comuna.comuna)
+    const { comuna, getComunaData } = useComuna()
+
+    const comunaStore = useSelector((state: State) => state.comuna.comuna)
 
     const [selectedComuna, setSelectedComuna] = useState<Comuna | undefined>(undefined)
 
     useEffect(() => {
-        if(comuna && comuna?.id !== params.id) {
-            // Ir a buscar a firestore
-        }
-
-        if(comuna?.id === params.id) {
-            setSelectedComuna(comuna)
+        if(comunaStore?.id === params.id) {
+            setSelectedComuna(comunaStore)
         }
     }, [])
+
+    useEffect(() => {
+        const comunaName = comunaCodes[+params.id].toLowerCase()
+        getComunaData(comunaName)
+    }, [params])
+
+    useEffect(() => {
+        if(comuna) {
+            setSelectedComuna(comuna)
+        }
+    }, [comuna])
 
     if(!selectedComuna) {
         return <Text>Ha ocurrido un error</Text>
