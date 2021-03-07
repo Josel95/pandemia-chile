@@ -48,7 +48,6 @@ export const useLocation = () => {
     }, [])
 
     useEffect(() => {
-        console.log(permissionGranted)
         if(permissionGranted){
             const watchId = Geolocation.watchPosition(
                 position => {

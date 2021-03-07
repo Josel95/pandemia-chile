@@ -12,6 +12,8 @@ import { createStackNavigator, StackNavigationOptions } from '@react-navigation/
 
 import { useLocation } from './hooks/useLocation'
 
+import { useComuna } from './hooks/useComuna'
+
 import { store } from './redux/store'
 
 import { Header } from './components/Header'
@@ -21,6 +23,8 @@ import { HomeScreen } from './screens/HomeScreen'
 import { ComunaDetailScreen } from './screens/ComunaDetailScreen'
 
 import { SearchScreen } from './screens/SearchScreen'
+
+import { setComuna } from './redux/actions/comunasActions'
 
 const Stack = createStackNavigator()
 
@@ -41,9 +45,19 @@ const App = () => {
 
     const { comunaName } = useLocation()
 
+    const { comuna, getComunaData } = useComuna()
+
     useEffect(() => {
-        console.log(comunaName)
+        if(comunaName) {
+            getComunaData(comunaName)
+        }
     }, [comunaName])
+
+    useEffect(() => {
+        if(comuna) {
+            store.dispatch(setComuna(comuna, true))
+        }
+    }, [comuna])
 
     return (
         <ThemeProvider theme={theme}>
