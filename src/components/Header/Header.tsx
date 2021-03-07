@@ -1,14 +1,23 @@
-import React, { FC } from 'react'
+import React, { FC, useRef, useEffect } from 'react'
 
 import { Header as AppBar } from 'react-native-elements'
 
 import { useNavigation } from '@react-navigation/native'
 
-import { styles } from './styles'
+import { Search } from '../Search'
 
-export const Header: FC = () => {
+import { styles } from './styles'
+import { TextInput } from 'react-native'
+
+interface Props {
+    search: boolean
+}
+
+export const Header: FC<Props> = ({ search = false }) => {
 
     const navigation = useNavigation()
+
+    const searchInputRef = useRef<TextInput>(null)
 
     const handleSearchPress = () => {
         navigation.navigate('Search')
@@ -18,19 +27,36 @@ export const Header: FC = () => {
         navigation.goBack()
     }
 
-    const backArrow = { 
+    const backArrow = {
         icon: 'arrow-back',
         color: '#FFFFFF',
         onPress: handleBackPress
     }
+
+    const searchIcon = {
+        icon: 'search',
+        color: '#FFFFFF',
+        onPress: handleSearchPress
+    }
+
+    const title = {
+        text: `Pandemia Chile`,
+        style: styles.title
+    }
+
+    useEffect(() => {
+        if(search) {
+            searchInputRef.current?.focus()
+        }
+    }, [search])
 
     return (
         <AppBar
             containerStyle={styles.container}
             placement="left"
             leftComponent={navigation.canGoBack() ? backArrow : undefined}
-            centerComponent={{ text: 'Pandemia Chile', style: styles.title }}
-            rightComponent={{ icon: 'search', color: '#FFFFFF', onPress: handleSearchPress }}
+            centerComponent={!search ? title : <Search ref={searchInputRef}/>}
+            rightComponent={!search ? searchIcon : undefined}
         />
     )
 }

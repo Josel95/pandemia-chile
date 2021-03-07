@@ -37,6 +37,10 @@ const headerOptions: StackNavigationOptions = {
     header: () => <Header />
 }
 
+const headerSearchOptions: StackNavigationOptions = {
+    header: () => <Header search/>
+}
+
 const theme = {
     colors: {
         primary: '#03A8F4'
@@ -68,7 +72,7 @@ const App = () => {
                         <Stack.Navigator screenOptions={headerOptions}>
                             <Stack.Screen name="Home" component={HomeScreen} />
                             <Stack.Screen name="ComunaDetail" component={ComunaDetailScreen} />
-                            <Stack.Screen name="Search" component={SearchScreen} />
+                            <Stack.Screen name="Search" component={SearchScreen} options={headerSearchOptions}/>
                         </Stack.Navigator>
                     </NavigationContainer>
                 </Provider>

@@ -1,6 +1,6 @@
-import { Action } from '../../types/Action'
+import { Reducer } from 'redux'
 
-import { Comuna } from '../../types/Comuna'
+import { ActionComuna } from '../../types/ActionComuna'
 
 import { ComunaState } from '../../types/ComunaState'
 
@@ -8,7 +8,7 @@ import { SET_COMUNA } from '../actions/comunasActions'
 
 const initialState = {}
 
-export const comunaReducer = (state: ComunaState | {} = initialState, action: Action<Comuna>): ComunaState | {} => {
+export const comunaReducer: Reducer<ComunaState | {}, ActionComuna> = (state: ComunaState | {} = initialState, action: ActionComuna): ComunaState | {} => {
 
     if(action.type === SET_COMUNA) {
         return {
