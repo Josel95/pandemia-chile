@@ -1,4 +1,4 @@
-package com.pandemiachile;
+package com.josel95.pandemiachile;
 
 import com.facebook.react.ReactActivity;
 
