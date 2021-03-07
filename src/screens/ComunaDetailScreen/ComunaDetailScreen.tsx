@@ -67,7 +67,7 @@ export const ComunaDetailScreen: FC = () => {
             <ComunaDetailHeader 
                 comunaName={selectedComuna.name} 
                 paso={selectedComuna.paso} 
-                isCurrentLocation={false} />
+                isCurrentLocation={selectedComuna.id === comunaStore?.id} />
     
             <View style={styles.quarantineDaysContainer}>
                 <QuarantineDays paso={selectedComuna.paso} />
