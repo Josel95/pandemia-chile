@@ -8,6 +8,12 @@ import { getComuna } from '../geocoding/getComuna'
 
 import { Coords } from '../types/Coords'
 
+export enum LocationError {
+    PERMISSION_DENIED,
+    NOT_CL,
+    UNKNOWN
+}
+
 const requestLocationPermission = async () => {
     const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -32,33 +38,36 @@ export const useLocation = () => {
 
     const [comunaName, setComunaName] = useState<string | undefined>()
 
-    const [error, setError] = useState<string | undefined>()
+    const [error, setError] = useState<LocationError | undefined>()
 
     const [permissionGranted, setPermissionGranted] = useState(false)
 
     useEffect(() => {
         (async () => {
             const permission = await checkLocationPermission()
+
             if(!permission) {
                 const permission = await requestLocationPermission()
                 setPermissionGranted(permission)
             }
+
             setPermissionGranted(permission)
         })()
     }, [])
 
     useEffect(() => {
+        let watchId: number
+
         if(permissionGranted){
-            const watchId = Geolocation.watchPosition(
+            watchId = Geolocation.watchPosition(
                 position => {
                     setCoords({
                         longitude: position.coords.longitude,
                         latitude: position.coords.latitude,
                     })
                 },
-                error => {
-                    console.log(error)
-                    console.log('Ha ocurrido un error obteniendo la posicion')
+                () => {
+                    setError(LocationError.UNKNOWN)
                 },
                 {
                     enableHighAccuracy: true,
@@ -67,10 +76,14 @@ export const useLocation = () => {
                     useSignificantChanges: true
                 }
             )
-    
-            return () => {
-                Geolocation.clearWatch(watchId)
-            }
+
+            setError(undefined)
+        } else {
+            setError(LocationError.PERMISSION_DENIED)
+        }
+
+        return () => {
+            Geolocation.clearWatch(watchId)
         }
     }, [permissionGranted])
 
@@ -79,9 +92,12 @@ export const useLocation = () => {
             if(coords){
                 try {
                     const comuna = await getComuna(coords)
+                    if(comuna === 'NOTCL') {
+                        setError(LocationError.NOT_CL)
+                    }
                     setComunaName(comuna)
-                } catch (err) {
-                    setError(err)
+                } catch {
+                    setError(LocationError.UNKNOWN)
                 }
             }
         })()

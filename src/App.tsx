@@ -10,7 +10,7 @@ import { NavigationContainer } from '@react-navigation/native'
 
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 
-import { useLocation } from './hooks/useLocation'
+import { useLocation, LocationError } from './hooks/useLocation'
 
 import { useComuna } from './hooks/useComuna'
 
@@ -25,6 +25,8 @@ import { ComunaDetailScreen } from './screens/ComunaDetailScreen'
 import { SearchScreen } from './screens/SearchScreen'
 
 import { setComuna } from './redux/actions/comunasActions'
+
+const DEFAULT_COMUNA = 'santiago'
 
 const Stack = createStackNavigator()
 
@@ -43,19 +45,17 @@ const theme = {
 
 const App = () => {
 
-    const { comunaName } = useLocation()
+    const { comunaName, error: locationError } = useLocation()
 
     const { comuna, getComunaData } = useComuna()
 
     useEffect(() => {
-        if(comunaName) {
-            getComunaData(comunaName)
-        }
+        getComunaData(comunaName || DEFAULT_COMUNA)
     }, [comunaName])
 
     useEffect(() => {
         if(comuna) {
-            store.dispatch(setComuna(comuna, true))
+            store.dispatch(setComuna(comuna, locationError !== LocationError.PERMISSION_DENIED))
         }
     }, [comuna])
 

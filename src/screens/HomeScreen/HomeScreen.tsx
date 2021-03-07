@@ -14,6 +14,8 @@ export const HomeScreen: FC = () => {
 
     const comuna = useSelector((state: State) => state.comuna.comuna)
 
+    const isCurrentComuna = useSelector((state: State) => state.comuna.isCurrentComuna)
+
     if(!comuna){
         return (
             <></>
@@ -22,7 +24,7 @@ export const HomeScreen: FC = () => {
 
     return (
         <View style={styles.container} >
-            <ComunaList comuna={comuna} showCurrent={true}/>
+            <ComunaList comuna={comuna} isCurrentLocation={isCurrentComuna} showCurrent={true}/>
         </View>
     )
 }

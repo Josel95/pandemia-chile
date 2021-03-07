@@ -18,7 +18,7 @@ export const getComuna = async (coords: Coords) => {
             })
 
             if(country.short_name !== 'CL') {
-                throw new Error('Esta aplicación solo funciona en Chile.')
+                return 'NOTCL'
             }
 
             const comuna = data.results[0].address_components.find((addressComponent: any) => {
@@ -28,7 +28,7 @@ export const getComuna = async (coords: Coords) => {
             return comuna.short_name
         }
     } catch {
-
+        return undefined
     }
 
     return undefined

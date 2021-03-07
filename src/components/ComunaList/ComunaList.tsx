@@ -10,16 +10,17 @@ import { styles } from './styles'
 
 interface Props {
     comuna: Comuna,
+    isCurrentLocation?: boolean
     showCurrent?: boolean
 }
 
-export const ComunaList: FC<Props> = ({ comuna, showCurrent = false }) => {
+export const ComunaList: FC<Props> = ({ comuna, isCurrentLocation = false, showCurrent = false }) => {
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             {
                 showCurrent &&
-                <ComunaListItem id={comuna.id} comuna={comuna.name} paso={comuna.paso} isCurrentLocation />
+                <ComunaListItem id={comuna.id} comuna={comuna.name} paso={comuna.paso} isCurrentLocation={isCurrentLocation} />
             }
             {
                 comuna.nearComunas.map(nearComuna => 
