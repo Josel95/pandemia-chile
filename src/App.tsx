@@ -1,18 +1,14 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 
 import { Provider } from 'react-redux'
 
-import { StatusBar, Text } from 'react-native'
+import { StatusBar } from 'react-native'
 
 import { ThemeProvider } from 'react-native-elements'
 
 import { NavigationContainer } from '@react-navigation/native'
 
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
-
-import { useLocation, LocationError } from './hooks/useLocation'
-
-import { useComuna } from './hooks/useComuna'
 
 import { store } from './redux/store'
 
@@ -24,9 +20,7 @@ import { ComunaDetailScreen } from './screens/ComunaDetailScreen'
 
 import { SearchScreen } from './screens/SearchScreen'
 
-import { setComuna } from './redux/actions/comunasActions'
-
-const DEFAULT_COMUNA = 'santiago'
+import { SplashScreen } from './screens/SplashScreen'
 
 const Stack = createStackNavigator()
 
@@ -49,27 +43,14 @@ const theme = {
 
 const App = () => {
 
-    const { comunaName, error: locationError, loading: loadingLocation } = useLocation()
-
-    const { comuna, getComunaData, loading: loadingComuna } = useComuna()
-
-    useEffect(() => {
-        getComunaData(comunaName || DEFAULT_COMUNA)
-    }, [comunaName])
-
-    useEffect(() => {
-        if(comuna) {
-            store.dispatch(setComuna(comuna, locationError !== LocationError.PERMISSION_DENIED))
-        }
-    }, [comuna])
-
     return (
         <ThemeProvider theme={theme}>
             <Fragment>
                 <Provider store={store}>
                     <StatusBar barStyle="dark-content" />
                     <NavigationContainer>
-                        <Stack.Navigator screenOptions={headerOptions}>
+                        <Stack.Navigator initialRouteName="Splash" screenOptions={headerOptions}>
+                            <Stack.Screen name="Splash" component={SplashScreen} />
                             <Stack.Screen name="Home" component={HomeScreen} />
                             <Stack.Screen name="ComunaDetail" component={ComunaDetailScreen} />
                             <Stack.Screen name="Search" component={SearchScreen} options={headerSearchOptions}/>
