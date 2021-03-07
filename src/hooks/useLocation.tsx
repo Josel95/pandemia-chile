@@ -40,6 +40,8 @@ export const useLocation = () => {
 
     const [error, setError] = useState<LocationError | undefined>()
 
+    const [loading, setLoading] = useState(false)
+
     const [permissionGranted, setPermissionGranted] = useState(false)
 
     useEffect(() => {
@@ -91,11 +93,13 @@ export const useLocation = () => {
         (async () => {
             if(coords){
                 try {
+                    setLoading(true)
                     const comuna = await getComuna(coords)
                     if(comuna === 'NOTCL') {
                         setError(LocationError.NOT_CL)
                     }
                     setComunaName(comuna)
+                    setLoading(false)
                 } catch {
                     setError(LocationError.UNKNOWN)
                 }
@@ -103,5 +107,5 @@ export const useLocation = () => {
         })()
     }, [coords])
 
-    return { coords, comunaName, error }
+    return { coords, comunaName, error, loading }
 }

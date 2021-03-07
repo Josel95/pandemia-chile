@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react'
 
 import { Provider } from 'react-redux'
 
-import { StatusBar } from 'react-native'
+import { StatusBar, Text } from 'react-native'
 
 import { ThemeProvider } from 'react-native-elements'
 
@@ -49,9 +49,9 @@ const theme = {
 
 const App = () => {
 
-    const { comunaName, error: locationError } = useLocation()
+    const { comunaName, error: locationError, loading: loadingLocation } = useLocation()
 
-    const { comuna, getComunaData } = useComuna()
+    const { comuna, getComunaData, loading: loadingComuna } = useComuna()
 
     useEffect(() => {
         getComunaData(comunaName || DEFAULT_COMUNA)
