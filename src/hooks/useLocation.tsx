@@ -10,7 +10,6 @@ import { Coords } from '../types/Coords'
 
 export enum LocationError {
     PERMISSION_DENIED,
-    NOT_CL,
     UNKNOWN
 }
 
@@ -95,9 +94,6 @@ export const useLocation = () => {
                 try {
                     setLoading(true)
                     const comuna = await getComuna(coords)
-                    if(comuna === 'NOTCL') {
-                        setError(LocationError.NOT_CL)
-                    }
                     setComunaName(comuna)
                     setLoading(false)
                 } catch {

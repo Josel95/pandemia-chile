@@ -22,6 +22,8 @@ import { SearchScreen } from './screens/SearchScreen'
 
 import { SplashScreen } from './screens/SplashScreen'
 
+import { ErrorScreen } from './screens/ErrorScreen'
+
 const Stack = createStackNavigator()
 
 const headerOptions: StackNavigationOptions = {
@@ -53,7 +55,8 @@ const App = () => {
                             <Stack.Screen name="Splash" component={SplashScreen} />
                             <Stack.Screen name="Home" component={HomeScreen} />
                             <Stack.Screen name="ComunaDetail" component={ComunaDetailScreen} />
-                            <Stack.Screen name="Search" component={SearchScreen} options={headerSearchOptions}/>
+                            <Stack.Screen name="Search" component={SearchScreen} options={headerSearchOptions} />
+                            <Stack.Screen name="Error" component={ErrorScreen} />
                         </Stack.Navigator>
                     </NavigationContainer>
                 </Provider>
