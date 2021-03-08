@@ -25,11 +25,13 @@ export const SplashScreen: FC = () => {
 
     const { comunaName, error: locationError, loading: loadingLocation } = useLocation()
 
-    const { comuna, getComunaData, error: errorComuna, loading: loadingComuna } = useComuna()
+    const { comuna, getComunaData, error: errorComuna, loading: loadingComuna } = useComuna(DEFAULT_COMUNA)
 
     useEffect(() => {
         if(!loadingLocation) {
-            getComunaData(comunaName || DEFAULT_COMUNA)
+            if(comunaName) {
+                getComunaData(comunaName)
+            }
         }
     }, [comunaName, loadingLocation])
 
@@ -47,15 +49,13 @@ export const SplashScreen: FC = () => {
                 routes: [{ name: 'Home' }]
             })
         }
+    }, [loadingLocation, loadingComuna, comuna])
 
+    useEffect(() => {
         if(errorComuna) {
             navigation.navigate('Error')
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Error' }]
-            })
         }
-    }, [loadingLocation, loadingComuna])
+    }, [errorComuna])
 
     return (
         <Loading />

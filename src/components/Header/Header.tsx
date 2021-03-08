@@ -11,9 +11,10 @@ import { TextInput } from 'react-native'
 
 interface Props {
     search?: boolean
+    onlyTitle?: boolean
 }
 
-export const Header: FC<Props> = ({ search = false }) => {
+export const Header: FC<Props> = ({ search = false, onlyTitle = false }) => {
 
     const navigation = useNavigation()
 
@@ -54,9 +55,9 @@ export const Header: FC<Props> = ({ search = false }) => {
         <AppBar
             containerStyle={styles.container}
             placement="left"
-            leftComponent={navigation.canGoBack() ? backArrow : undefined}
+            leftComponent={navigation.canGoBack() && !onlyTitle ? backArrow : undefined}
             centerComponent={!search ? title : <Search ref={searchInputRef}/>}
-            rightComponent={!search ? searchIcon : undefined}
+            rightComponent={!search && !onlyTitle ? searchIcon : undefined}
         />
     )
 }
