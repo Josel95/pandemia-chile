@@ -46,6 +46,8 @@ export const ComunaDetailScreen: FC = () => {
 
     const comunaStore = useSelector((state: State) => state.comuna.comuna)
 
+    const isCurrentComuna = useSelector((state: State) => state.comuna.isCurrentComuna)
+
     const [selectedComuna, setSelectedComuna] = useState<Comuna | undefined>(undefined)
 
     useEffect(() => {
@@ -84,7 +86,7 @@ export const ComunaDetailScreen: FC = () => {
             <ComunaDetailHeader 
                 comunaName={selectedComuna.name} 
                 paso={selectedComuna.paso} 
-                isCurrentLocation={selectedComuna.id === comunaStore?.id} />
+                isCurrentLocation={selectedComuna.id === comunaStore?.id && isCurrentComuna} />
     
             <View style={styles.quarantineDaysContainer}>
                 <QuarantineDays paso={selectedComuna.paso} />

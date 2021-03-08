@@ -25,7 +25,7 @@ export const SplashScreen: FC = () => {
 
     const { comunaName, error: locationError, loading: loadingLocation } = useLocation()
 
-    const { comuna, getComunaData, error: errorComuna, loading: loadingComuna } = useComuna(defaults.DEFAULT_COMUNA)
+    const { comuna, getComunaData, error: errorComuna, loading: loadingComuna, usedDefault } = useComuna(defaults.DEFAULT_COMUNA)
 
     useEffect(() => {
         if(!loadingLocation) {
@@ -37,7 +37,7 @@ export const SplashScreen: FC = () => {
 
     useEffect(() => {
         if(comuna) {
-            dispatch(setComuna(comuna, locationError !== LocationError.PERMISSION_DENIED))
+            dispatch(setComuna(comuna, !usedDefault))
         }
     }, [comuna])
 

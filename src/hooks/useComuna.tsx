@@ -11,6 +11,8 @@ export const useComuna = (defaultComuna:  string) => {
 
     const [retry, setRetry] = useState<boolean | undefined>()
 
+    const [usedDefault, setUsedDefault] = useState(false)
+
     const [loading, setLoading] = useState(false)
 
     const getComunaData = (comunaName: string) => {
@@ -19,6 +21,7 @@ export const useComuna = (defaultComuna:  string) => {
 
         if(comunaName === 'NOTCL') {
             comunaName = defaultComuna
+            setUsedDefault(true)
         }
         
         const documentRef = firestore.collection('comunas').doc(comunaName.toLowerCase())
@@ -46,6 +49,7 @@ export const useComuna = (defaultComuna:  string) => {
     useEffect(() => {
         if(retry === true) {
             getComunaData(defaultComuna)
+            setUsedDefault(true)
             setRetry(false)
         }
 
@@ -54,5 +58,5 @@ export const useComuna = (defaultComuna:  string) => {
         }
     }, [retry])
 
-    return { comuna, getComunaData, error, loading }
+    return { comuna, getComunaData, error, loading, usedDefault }
 } 
