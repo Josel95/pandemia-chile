@@ -14,9 +14,9 @@ import { setComuna } from '../../redux/actions/comunasActions'
 
 import { Loading } from '../../components/Loading'
 
-import { styles } from './styles'
+import { defaults } from '../../defaults'
 
-const DEFAULT_COMUNA = 'santiago'
+import { styles } from './styles'
 
 export const SplashScreen: FC = () => {
     const dispatch = useDispatch()
@@ -25,7 +25,7 @@ export const SplashScreen: FC = () => {
 
     const { comunaName, error: locationError, loading: loadingLocation } = useLocation()
 
-    const { comuna, getComunaData, error: errorComuna, loading: loadingComuna } = useComuna(DEFAULT_COMUNA)
+    const { comuna, getComunaData, error: errorComuna, loading: loadingComuna } = useComuna(defaults.DEFAULT_COMUNA)
 
     useEffect(() => {
         if(!loadingLocation) {

@@ -2,7 +2,7 @@ import React, { FC, Fragment, useEffect, useState } from 'react'
 
 import { Text, View } from 'react-native'
 
-import { useRoute } from '@react-navigation/native'
+import { useRoute, useNavigation } from '@react-navigation/native'
 
 import { useSelector } from 'react-redux'
 
@@ -16,6 +16,7 @@ import { QuarantineDays } from '../../components/QuarantineDays'
 
 import { Stats } from '../../components/Stats'
 
+
 import { ComunaList } from '../../components/ComunaList'
 
 import { Loading } from '../../components/Loading'
@@ -23,6 +24,8 @@ import { Loading } from '../../components/Loading'
 import { useComuna } from '../../hooks/useComuna'
 
 import { comunaCodes } from '../../comunaCodes'
+
+import { defaults } from '../../defaults'
 
 import { styles } from './styles'
 
@@ -37,7 +40,9 @@ interface RouteProp {
 export const ComunaDetailScreen: FC = () => {
     const { params } = useRoute<RouteProp>()
 
-    const { comuna, getComunaData, loading } = useComuna()
+    const navigation = useNavigation()
+
+    const { comuna, getComunaData, error, loading } = useComuna(defaults.DEFAULT_COMUNA)
 
     const comunaStore = useSelector((state: State) => state.comuna.comuna)
 
@@ -59,6 +64,12 @@ export const ComunaDetailScreen: FC = () => {
             setSelectedComuna(comuna)
         }
     }, [comuna])
+
+    useEffect(() => {
+        if(error) {
+            navigation.navigate('Error')
+        }
+    }, [error])
 
     if(loading) {
         return <Loading />
