@@ -51,14 +51,12 @@ export const ComunaDetailScreen: FC = () => {
     const [selectedComuna, setSelectedComuna] = useState<Comuna | undefined>(undefined)
 
     useEffect(() => {
-        if(comunaStore?.id === params.id) {
+        if(params.id !== comunaStore?.id) {
+            const comunaName = comunaCodes[+params.id].toLowerCase()
+            getComunaData(comunaName)
+        } else {
             setSelectedComuna(comunaStore)
         }
-    }, [])
-
-    useEffect(() => {
-        const comunaName = comunaCodes[+params.id].toLowerCase()
-        getComunaData(comunaName)
     }, [params])
 
     useEffect(() => {
@@ -73,12 +71,8 @@ export const ComunaDetailScreen: FC = () => {
         }
     }, [error])
 
-    if(loading) {
+    if(loading || !selectedComuna) {
         return <Loading />
-    }
-
-    if(!selectedComuna) {
-        return <Text>Ha ocurrido un error</Text>
     }
 
     return (
