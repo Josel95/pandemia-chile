@@ -50,9 +50,9 @@ export const useLocation = () => {
             if(!permission) {
                 const permission = await requestLocationPermission()
                 setPermissionGranted(permission)
+            } else {
+                setPermissionGranted(permission)
             }
-
-            setPermissionGranted(permission)
         })()
     }, [])
 
