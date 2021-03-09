@@ -75,7 +75,7 @@ export const ComunaDetailScreen: FC = () => {
 
             <View style={styles.statsContainer}>
                 <Stats 
-                    deaths={comuna.deadByComuna}
+                    deaths={comuna.deathCases}
                     active={comuna.activeCases}
                     total={comuna.totalCases} />
             </View>
