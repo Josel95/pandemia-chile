@@ -54,7 +54,7 @@ const App = () => {
             "Descargo de responsabilidades",
             "La información contenida en esta aplicación podría estar desactualizada, siempre confirma con la información oficial y utiliza esta aplicación solo como referencia. ",
             [
-                { text: "Entendido", onPress: () => console.log("OK Pressed") }
+                { text: "Entendido" }
             ],
             { cancelable: false }
         );
