@@ -23,7 +23,7 @@ export const HomeScreen: FC = () => {
     }
 
     return (
-        <View style={styles.container} >
+        <View >
             <ComunaList comuna={comuna} isCurrentLocation={isCurrentComuna} showCurrent={true}/>
         </View>
     )

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 import { View, TouchableOpacity } from 'react-native'
 
-import { Card, Icon, Text } from 'react-native-elements'
+import { ListItem, Icon, Text } from 'react-native-elements'
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -26,7 +26,7 @@ export const ComunaListItem: FC<Props> = ({ id, comuna, paso, isCurrentLocation 
 
     return (
         <TouchableOpacity onPress={handlePress}>
-            <Card containerStyle={styles.card} wrapperStyle={styles.container}>
+            <ListItem bottomDivider containerStyle={styles.container}>
                 <View style={styles.name}>
                     <Text style={styles.text}>{ comuna }</Text>
                     {
@@ -36,7 +36,7 @@ export const ComunaListItem: FC<Props> = ({ id, comuna, paso, isCurrentLocation 
                 <View>
                     <Paso paso={paso}/>
                 </View>
-            </Card>
+            </ListItem>
         </TouchableOpacity>
     )
 }

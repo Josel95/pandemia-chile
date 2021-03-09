@@ -82,8 +82,8 @@ export const ComunaDetailScreen: FC = () => {
 
             <View style={styles.nearComunasContainer}>
                 <Text style={styles.nearComunasTitle}>Comunas Cercanas</Text>
-                <ComunaList comuna={comuna}/>
             </View>
+            <ComunaList comuna={comuna}/>
         </Fragment>
     )
 }
