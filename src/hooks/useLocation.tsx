@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
-import { PermissionsAndroid } from 'react-native'
+import { Image, PermissionsAndroid } from 'react-native'
 
-import Geolocation from '@react-native-community/geolocation'
+import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
 
 import { getComuna } from '../geocoding/getComuna'
 
@@ -33,75 +33,66 @@ const checkLocationPermission = async () => {
 }
 
 export const useLocation = () => {
-    const [coords, setCoords] = useState<Coords | undefined>()
-
     const [comunaName, setComunaName] = useState<string | undefined>()
 
-    const [error, setError] = useState<LocationError | undefined>()
+    const [error, setError] = useState(false)
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    const [permissionGranted, setPermissionGranted] = useState(false)
+    const requestPermission = async () => {
+        return new Promise(async (resolve, reject) => {
+            const permission = await checkLocationPermission()
+    
+            if(permission) {
+                resolve(true)
+            }
+    
+            const permissionGranted = await requestLocationPermission()
+            if(permissionGranted) {
+                resolve(true)
+            }
+
+            reject('Permission Denied')
+        })
+    }
+    
+    const getPosition = () => {
+        return new Promise<Coords>((resolve, reject) => {
+            const onSuccess = (position: GeolocationResponse) => {
+                resolve({ 
+                    latitude: position.coords.latitude, 
+                    longitude: position.coords.longitude,
+                })
+            }
+
+            const onError = () => {
+                reject('Location Error')
+            }
+
+            Geolocation.getCurrentPosition(onSuccess, onError)
+        })
+    }
+
+    const execute = async () => {
+        try {
+            await requestPermission()
+
+            const coords: Coords = await getPosition()
+
+            const comuna = await getComuna(coords)
+
+            setComunaName(comuna)
+            
+        } catch(error) {
+            setError(true)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        (async () => {
-            const permission = await checkLocationPermission()
-
-            if(!permission) {
-                const permission = await requestLocationPermission()
-                setPermissionGranted(permission)
-            } else {
-                setPermissionGranted(permission)
-            }
-        })()
+        execute()
     }, [])
 
-    useEffect(() => {
-        let watchId: number
-
-        if(permissionGranted){
-            watchId = Geolocation.watchPosition(
-                position => {
-                    setCoords({
-                        longitude: position.coords.longitude,
-                        latitude: position.coords.latitude,
-                    })
-                },
-                () => {
-                    setError(LocationError.UNKNOWN)
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 15000,
-                    maximumAge: 10000,
-                    useSignificantChanges: true
-                }
-            )
-
-            setError(undefined)
-        } else {
-            setError(LocationError.PERMISSION_DENIED)
-        }
-
-        return () => {
-            Geolocation.clearWatch(watchId)
-        }
-    }, [permissionGranted])
-
-    useEffect(() => {
-        (async () => {
-            if(coords){
-                try {
-                    setLoading(true)
-                    const comuna = await getComuna(coords)
-                    setComunaName(comuna)
-                    setLoading(false)
-                } catch {
-                    setError(LocationError.UNKNOWN)
-                }
-            }
-        })()
-    }, [coords])
-
-    return { coords, comunaName, error, loading }
+    return { comunaName, error, loading }
 }

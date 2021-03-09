@@ -1,62 +1,73 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 import firestore from '../firebase/firestore'
 
+import { useSelector } from 'react-redux'
+
+import { defaults } from '../defaults'
+
+import { State } from '../types/State'
+
 import { Comuna } from '../types/Comuna'
 
-export const useComuna = (defaultComuna:  string) => {
-    const [comuna, setComuna] = useState<Comuna | undefined>()
+const fetchFirestoreData = async (comunaName: string) => {
+    const document = await firestore.collection('comunas').doc(comunaName.toLowerCase()).get()
+
+    if(!document.exists) {
+        return null
+    }
+
+    return document.data() as Comuna
+}
+
+export const useComuna = () => {
+    const [comuna, setComuna] = useState<Comuna>()
 
     const [error, setError] = useState(false)
 
-    const [retry, setRetry] = useState<boolean | undefined>()
+    const [loading, setLoading] = useState(true)
 
     const [usedDefault, setUsedDefault] = useState(false)
 
-    const [loading, setLoading] = useState(false)
+    const comunaStore = useSelector((state: State) => state.comuna.comuna)
 
-    const getComunaData = (comunaName: string) => {
+    const getComuna = async (comunaName?: string) => {
         setLoading(true)
         setError(false)
 
-        if(comunaName === 'NOTCL') {
-            comunaName = defaultComuna
-            setUsedDefault(true)
-        }
-        
-        const documentRef = firestore.collection('comunas').doc(comunaName.toLowerCase())
+        try {
+            if(!comunaName) {
+                comunaName = defaults.DEFAULT_COMUNA
+                setUsedDefault(true)
+            }
 
-        documentRef.get()
-            .then(document => {
-                if (document.exists) {
-                    setComuna(document.data() as Comuna)
-                } else {
-                    if(retry === undefined && comunaName !== defaultComuna) {
-                        setRetry(true)
-                    } else {
-                        setError(true)
-                    }
+            if(comunaStore && comunaStore.name.toLowerCase() === comunaName.toLowerCase()) {
+                setComuna(comunaStore)
+                return
+            }
+
+            let comuna = await fetchFirestoreData(comunaName)
+
+            if(!comuna) {
+                comuna = await fetchFirestoreData(defaults.DEFAULT_COMUNA)
+                setUsedDefault(true)
+
+                if(!comuna) {
+                    setError(true)
+                    return
                 }
-            })
-            .finally(() => {
-                if(__DEV__) {
-                    console.info(`consultada comuna: ${comunaName}`)
-                }
-                setLoading(false)
-            })
+            }
+
+            setComuna(comuna)
+        } catch {
+            setError(true)
+        } finally {
+            if(__DEV__) {
+                console.info(`consultada comuna: ${comunaName}`)
+            }
+            setLoading(false)
+        }
     }
 
-    useEffect(() => {
-        if(retry === true) {
-            getComunaData(defaultComuna)
-            setUsedDefault(true)
-            setRetry(false)
-        }
-
-        if(retry === false) {
-            setError(true)
-        }
-    }, [retry])
-
-    return { comuna, getComunaData, error, loading, usedDefault }
+    return { comuna, error, loading, usedDefault, getComuna }
 } 

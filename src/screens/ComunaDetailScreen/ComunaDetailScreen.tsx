@@ -25,8 +25,6 @@ import { useComuna } from '../../hooks/useComuna'
 
 import { comunaCodes } from '../../comunaCodes'
 
-import { defaults } from '../../defaults'
-
 import { styles } from './styles'
 
 interface RouteProp {
@@ -42,60 +40,51 @@ export const ComunaDetailScreen: FC = () => {
 
     const navigation = useNavigation()
 
-    const { comuna, getComunaData, error, loading } = useComuna(defaults.DEFAULT_COMUNA)
-
-    const comunaStore = useSelector((state: State) => state.comuna.comuna)
+    const { comuna, error, loading, usedDefault, getComuna } = useComuna()
 
     const isCurrentComuna = useSelector((state: State) => state.comuna.isCurrentComuna)
 
-    const [selectedComuna, setSelectedComuna] = useState<Comuna | undefined>(undefined)
-
     useEffect(() => {
-        if(params.id !== comunaStore?.id) {
-            const comunaName = comunaCodes[+params.id].toLowerCase()
-            getComunaData(comunaName)
-        } else {
-            setSelectedComuna(comunaStore)
+        if(loading) {
+            return
         }
-    }, [params])
 
-    useEffect(() => {
-        if(comuna) {
-            setSelectedComuna(comuna)
-        }
-    }, [comuna])
-
-    useEffect(() => {
         if(error) {
             navigation.navigate('Error')
+            return
         }
-    }, [error])
+    }, [error, loading])
 
-    if(loading || !selectedComuna) {
+    useEffect(() => {
+        const comunaName = comunaCodes[+params.id].toLowerCase()
+        getComuna(comunaName)
+    }, [params])
+
+    if(loading || !comuna) {
         return <Loading />
     }
 
     return (
         <Fragment>
             <ComunaDetailHeader 
-                comunaName={selectedComuna.name} 
-                paso={selectedComuna.paso} 
-                isCurrentLocation={selectedComuna.id === comunaStore?.id && isCurrentComuna} />
+                comunaName={comuna.name} 
+                paso={comuna.paso} 
+                isCurrentLocation={isCurrentComuna} />
     
             <View style={styles.quarantineDaysContainer}>
-                <QuarantineDays paso={selectedComuna.paso} />
+                <QuarantineDays paso={comuna.paso} />
             </View>
 
             <View style={styles.statsContainer}>
                 <Stats 
-                    deaths={selectedComuna.deadByComuna}
-                    active={selectedComuna.activeCases}
-                    total={selectedComuna.totalCases} />
+                    deaths={comuna.deadByComuna}
+                    active={comuna.activeCases}
+                    total={comuna.totalCases} />
             </View>
 
             <View style={styles.nearComunasContainer}>
                 <Text style={styles.nearComunasTitle}>Comunas Cercanas</Text>
-                <ComunaList comuna={selectedComuna}/>
+                <ComunaList comuna={comuna}/>
             </View>
         </Fragment>
     )
