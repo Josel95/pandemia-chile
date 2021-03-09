@@ -27,7 +27,7 @@ export const SearchItem: FC<Props> = ({ id, name, searchTerm }) => {
         <ListItem key={id} bottomDivider onPress={handlePress}>
             <ListItem.Content>
                 <Text>
-                    <Text style={[styles.text, styles.bold]}>{searchTerm}</Text>
+                    <Text style={[styles.text, styles.bold, styles.capitalize]}>{searchTerm}</Text>
                     <Text style={styles.text}>{restName}</Text>
                 </Text>
             </ListItem.Content>

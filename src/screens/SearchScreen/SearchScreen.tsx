@@ -25,7 +25,7 @@ export const SearchScreen: FC = () => {
             data={filteredEntries}
             renderItem={(entrie) => <SearchItem id={entrie.item[0]} name={entrie.item[1]} searchTerm={searchTerm}/>}
             initialNumToRender={15}
-            ListEmptyComponent={<Text>No se han encontrado resultados</Text>}
+            ListEmptyComponent={<Text style={styles.notFoundText}>No se han encontrado resultados</Text>}
             keyExtractor={(entrie) => entrie[0]}
         />
     )
