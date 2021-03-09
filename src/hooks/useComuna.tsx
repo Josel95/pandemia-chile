@@ -13,6 +13,10 @@ import { Comuna } from '../types/Comuna'
 const fetchFirestoreData = async (comunaName: string) => {
     const document = await firestore.collection('comunas').doc(comunaName.toLowerCase()).get()
 
+    if(__DEV__) {
+        console.info(`consultada comuna: ${comunaName}`)
+    }
+
     if(!document.exists) {
         return null
     }
@@ -69,9 +73,6 @@ export const useComuna = () => {
         } catch {
             setError(true)
         } finally {
-            if(__DEV__) {
-                console.info(`consultada comuna: ${comunaName}`)
-            }
             setLoading(false)
         }
     }
