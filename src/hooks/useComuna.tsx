@@ -29,7 +29,11 @@ export const useComuna = () => {
 
     const [usedDefault, setUsedDefault] = useState(false)
 
+    const [isCurrent, setIsCurrent] = useState(false)
+
     const comunaStore = useSelector((state: State) => state.comuna.comuna)
+
+    const isCurrentComuna = useSelector((state: State) => state.comuna.isCurrentComuna)
 
     const getComuna = async (comunaName?: string) => {
         setLoading(true)
@@ -42,6 +46,9 @@ export const useComuna = () => {
             }
 
             if(comunaStore && comunaStore.name.toLowerCase() === comunaName.toLowerCase()) {
+                if(isCurrentComuna) {
+                    setIsCurrent(true)
+                }
                 setComuna(comunaStore)
                 return
             }
@@ -69,5 +76,5 @@ export const useComuna = () => {
         }
     }
 
-    return { comuna, error, loading, usedDefault, getComuna }
+    return { comuna, error, loading, usedDefault, isCurrent, getComuna }
 } 

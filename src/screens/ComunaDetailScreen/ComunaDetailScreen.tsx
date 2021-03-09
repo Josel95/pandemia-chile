@@ -40,9 +40,7 @@ export const ComunaDetailScreen: FC = () => {
 
     const navigation = useNavigation()
 
-    const { comuna, error, loading, usedDefault, getComuna } = useComuna()
-
-    const isCurrentComuna = useSelector((state: State) => state.comuna.isCurrentComuna)
+    const { comuna, error, loading, isCurrent, getComuna } = useComuna()
 
     useEffect(() => {
         if(loading) {
@@ -69,7 +67,7 @@ export const ComunaDetailScreen: FC = () => {
             <ComunaDetailHeader 
                 comunaName={comuna.name} 
                 paso={comuna.paso} 
-                isCurrentLocation={isCurrentComuna} />
+                isCurrentLocation={isCurrent} />
     
             <View style={styles.quarantineDaysContainer}>
                 <QuarantineDays paso={comuna.paso} />
