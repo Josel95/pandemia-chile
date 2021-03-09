@@ -69,7 +69,11 @@ export const useLocation = () => {
                 reject('Location Error')
             }
 
-            Geolocation.getCurrentPosition(onSuccess, onError)
+            Geolocation.getCurrentPosition(onSuccess, onError, {
+                enableHighAccuracy: true, 
+                timeout: 20000, 
+                maximumAge: 10000
+            })
         })
     }
 
