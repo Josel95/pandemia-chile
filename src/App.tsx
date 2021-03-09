@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 
 import { Provider } from 'react-redux'
 
-import { StatusBar } from 'react-native'
+import { StatusBar, Alert } from 'react-native'
 
 import { ThemeProvider } from 'react-native-elements'
 
@@ -48,6 +48,17 @@ const theme = {
 }
 
 const App = () => {
+
+    useEffect(() => {
+        Alert.alert(
+            "Descargo de responsabilidades",
+            "La información contenida en esta aplicación podría estar desactualizada, siempre confirma con la información oficial y utiliza esta aplicación solo como referencia. ",
+            [
+                { text: "Entendido", onPress: () => console.log("OK Pressed") }
+            ],
+            { cancelable: false }
+        );
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
